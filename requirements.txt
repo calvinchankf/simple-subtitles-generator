@@ -1,0 +1,8 @@
+faster-whisper
+torch
+torchaudio
+pyaudio
+webrtcvad
+numpy
+googletrans==4.0.0rc1
+colorama

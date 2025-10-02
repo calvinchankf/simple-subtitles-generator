@@ -26,7 +26,7 @@ init(autoreset=True)
 
 class SubtitleTranslator:
     def __init__(self, model_name="base", device="cpu", compute_type="int8",
-                 vad_mode=2, target_lang="zh-TW"):
+                 vad_mode=2, target_lang="zh-TW", save_to_file=True):
         """
         Initialize the subtitle translator.
 
@@ -36,12 +36,14 @@ class SubtitleTranslator:
             compute_type (str): Computation type ("int8", "float16", "float32")
             vad_mode (int): VAD aggressiveness (0-3, 3 is most aggressive)
             target_lang (str): Target language for translation (default: zh-TW for Traditional Chinese)
+            save_to_file (bool): Whether to save subtitles to file (default: True)
         """
         self.model_name = model_name
         self.device = device
         self.compute_type = compute_type
         self.vad_mode = vad_mode
         self.target_lang = target_lang
+        self.save_to_file = save_to_file
         self.model = None
         self.translator = Translator()
         self.is_recording = False
@@ -338,8 +340,11 @@ class SubtitleTranslator:
         # Show statistics
         self.print_statistics()
 
-        # Save subtitles
-        self.save_subtitles()
+        # Save subtitles if enabled
+        if self.save_to_file:
+            self.save_subtitles()
+        else:
+            print(f"{Fore.YELLOW}📝 Subtitle saving is disabled. Subtitles not saved to file.")
 
         print(f"{Fore.GREEN}✅ Subtitle translator stopped.")
 
@@ -471,13 +476,18 @@ def main():
     except ValueError:
         vad_mode = 2
 
+    print(f"\nSave subtitles to file?")
+    save_choice = input("Save to file? (y/n, default: y): ").strip().lower()
+    save_to_file = save_choice != 'n'
+
     # Initialize translator
     translator = SubtitleTranslator(
         model_name=model_choice,
         device=device_choice,
         compute_type=compute_choice,
         vad_mode=vad_mode,
-        target_lang="zh-TW"  # Traditional Chinese
+        target_lang="zh-TW",  # Traditional Chinese
+        save_to_file=save_to_file
     )
 
     # Show devices
@@ -489,6 +499,7 @@ def main():
     print(f"{Fore.CYAN}   Compute: {compute_choice}")
     print(f"{Fore.CYAN}   VAD Mode: {vad_mode} ({vad_modes[str(vad_mode)]})")
     print(f"{Fore.CYAN}   Translation: English → Traditional Chinese (繁體中文)")
+    print(f"{Fore.CYAN}   Save to file: {'Yes' if save_to_file else 'No'}")
 
     try:
         translator.start()

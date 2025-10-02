@@ -2,7 +2,7 @@
 
 A command-line tool that transcribes live audio and translates it to Traditional Chinese in real-time. Based on [simple-meeting-note-taker](https://github.com/calvinchankf/simple-meeting-note-taker) with added translation capabilities.
 
-## Demo
+## Demo screenshot
 
 ![img](/readme_static/demo.png)
 

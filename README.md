@@ -1,6 +1,6 @@
 # Real-time Subtitle Translator
 
-A command-line tool that transcribes live audio and translates it to Traditional Chinese in real-time. Based on `simple-meeting-note-taker` with added translation capabilities.
+A command-line tool that transcribes live audio and translates it to Traditional Chinese in real-time. Based on [simple-meeting-note-taker](https://github.com/calvinchankf/simple-meeting-note-taker) with added translation capabilities.
 
 ## Demo
 
